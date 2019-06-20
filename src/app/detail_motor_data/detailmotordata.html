@@ -1,0 +1,135 @@
+<div ng-if="!hideDetailMotorData">
+    <div class="row wrapper border-bottom bg-gray-lighter page-heading">
+        <div class="col-lg-10">
+            <h2 class="second-header">数据详情
+                <span>(振动轴温与电机温度)</span>
+            </h2>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+
+    <div class="real-content wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1" ng-include src="'components/alert/alert.html'"></div>
+
+                        <div class="col-md-12" style="
+                                                    padding-left:  18px;
+                                                    padding-right: 18px;"
+                             ng-show="formSearch.isLoaded && !formSearch.isLoading">
+
+                            <div class="col-md-2 md-item-text main-dialog-children md-whiteframe-z1" flex>
+                                <p class="main-dialog-title">线路：</p>
+                                <h3 class="main-dialog-title-value">{{line}}</h3>
+                            </div>
+                            <div class="col-md-2 md-item-text main-dialog-children md-whiteframe-z1" flex>
+                                <p class="main-dialog-title">车号：</p>
+                                <h3 class="main-dialog-title-value">{{trainId}}</h3>
+                            </div>
+
+                            <div class="col-md-2 md-item-text md-whiteframe-z1 main-dialog-children" flex>
+                                <p class="main-dialog-title">站点：</p>
+                                <h3 class="main-dialog-title-value">{{station}}</h3>
+                            </div>
+                            <div class="col-md-2 md-item-text main-dialog-children md-whiteframe-z1" ng-show="trainDirectionShow" flex>
+                                <p class="main-dialog-title">安装点：</p>
+                                <h3 class="main-dialog-title-value">{{trainDirection}}</h3>
+                            </div>
+                            <div class="col-md-2 md-item-text main-dialog-children md-whiteframe-z1" flex>
+                                <p class="main-dialog-title">状态：</p>
+                                <h3 class="main-dialog-title-value">{{trainState}}</h3>
+                            </div>
+                            <div class="col-md-2 md-item-text main-dialog-children md-whiteframe-z1" flex>
+                                <p class="main-dialog-title">行车时间：</p>
+                                <h3 class="main-dialog-title-value">{{trainDate}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content main-dialog-box"
+                         style="margin-top: 20px;border-radius: 16px;background: rgb(255,255,255);padding: 0px 0px 0px 0px;">
+
+                        <div class="text-center" ng-show="formSearch.isLoading">
+                            <img src="assets/images/loading.gif"/>
+                        </div>
+
+                        <div class="table-responsive " ng-show="formSearch.isLoaded && !formSearch.isLoading">
+                            <div class="col-lg-8">
+                                <table class="footable footable-for-vibrate table table-stripped toggle-arrow-tiny">
+                                    <thead>
+                                    <tr>
+                                        <th data-toggle="true">振动序号</th>
+                                        <th>均方根</th>
+                                        <th>峰值</th>
+                                        <th>峰值因子</th>
+                                        <th>峭度</th>
+                                        <th>峭度因子</th>
+                                        <th>振动轴温/˚C</th>
+                                        <th>轴温升/˚C</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr class="animate-repeat" ng-repeat="record in detailVibrateRecords.result">
+                                        <td>{{record.carriageWheel}}</td>
+                                        <td ng-class="{ redState : record.jfgState == 1,orangeState : record.jfgState == 2}">
+                                            {{record.jfgValue}}</td>
+                                        <td ng-class="{ redState : record.fzState == 1,orangeState : record.fzState == 2}">
+                                            {{record.fzValue}}</td>
+                                        <td ng-class="{ redState : record.fzyzState == 1,orangeState : record.fzyzState == 2}">
+                                            {{record.fzyzValue}}</td>
+                                        <td ng-class="{ redState : record.qdState == 1,orangeState : record.qdState == 2}">
+                                            {{record.qdValue}}</td>
+                                        <td ng-class="{ redState : record.qdyzState == 1,orangeState : record.qdyzState == 2}">
+                                            {{record.qdyzValue}}</td>
+                                        <td ng-class="{ redState : record.zxState == 1,orangeState : record.zxState == 2}">
+                                            {{record.zxTemp}}</td>
+                                        <td ng-class="{ redState : record.zxTempIncState == 1,orangeState : record.zxTempIncState == 2}">
+                                            {{record.zxTempinc}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-4" style="float: right;border-image: none;border-style: solid solid none;
+                                                        border-color: #e7eaec;
+                                                        border-width: 0px 0px 0px 1px;">
+                                <table class="footable footable-for-motor table table-stripped toggle-arrow-tiny">
+                                    <thead>
+                                    <tr>
+                                        <th data-toggle="true">电机序号</th>
+                                        <th>电机温度/˚C</th>
+                                        <th>电机温升/˚C</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr class="animate-repeat" ng-repeat="record in detailMotorRecords.result">
+                                        <td>{{record.carriageMotor}}</td>
+                                        <td ng-class="{ redState : record.motorTempState == 2,orangeState : record.motorTempState == 1}">
+                                            {{record.motorTemp}}</td>
+                                        <td ng-class="{ redState : record.motorTempIncState == 2,orangeState : record.motorTempIncState == 1}">
+                                            {{record.motorTempinc}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="layout-row configuration-footer" style="margin: auto;width: 237px;">
+                            <md-button class="md-raised" ng-click="backFromDetailMotorPage()"
+                                       ng-disabled="formSearch.isLoading">
+                                返回
+                            </md-button>
+                            <md-button class="md-raised md-primary" ng-click="exportData()"
+                                       ng-disabled="formSearch.isLoading || !formSearch.isLoaded">
+                                保存
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

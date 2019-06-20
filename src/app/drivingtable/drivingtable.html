@@ -1,0 +1,96 @@
+<div class="row wrapper border-bottom bg-gray-lighter page-heading">
+    <div class="col-lg-10">
+        <h2 class="second-header">行车报表</h2>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="real-content wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <form role="form" name="myForm">
+                    <div class="col-md-10 col-md-offset-1" ng-include src="'components/alert/alert.html'"></div>
+                </form>
+
+                <div class="ibox-content main-dialog-box" style="margin-top: 20px;border-radius: 16px;background: rgb(255,255,255);padding: 0px 0px 0px 0px;">
+                    <div class="text-center" ng-show="formSearch.isLoading">
+                        <img src="assets/images/loading.gif" />
+                    </div>
+                    <div class="table-responsive" ng-show="formSearch.isLoaded && !formSearch.isLoading">
+                        <table class="footable-driving-table footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    <th>车号</th>
+                                    <th>峰值</th>
+                                    <th>峰值因子</th>
+                                    <th>峭度</th>
+
+                                    <th>峭度因子</th>
+                                    <th>均方根</th>
+                                    <th>轴箱温度/˚C</th>
+                                    <th>电机温度/˚C</th>
+                                    <th>轴箱温升/˚C</th>
+                                    <th>电机温升/˚C</th>
+                                    <th>时间</th>
+                                    <th>状态</th>
+                                    <th>报表</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in reportRecords">
+                                    <td>{{record.trainId}}</td>
+                                    <td ng-class="{ redState : record.FZ.color == 1,orangeState : record.FZ.color == 2}">{{record.FZ.content}}</td>
+                                    <td ng-class="{ redState : record.FZYZ.color == 1,orangeState : record.FZYZ.color == 2}">{{record.FZYZ.content}}</td>
+                                    <td ng-class="{ redState : record.QD.color == 1,orangeState : record.QD.color == 2}">{{record.QD.content}}</td>
+
+                                    <td ng-class="{ redState : record.QDYZ.color == 1,orangeState : record.QDYZ.color == 2}">{{record.QDYZ.content}}</td>
+                                    <td ng-class="{ redState : record.JFG.color == 1,orangeState : record.JFG.color == 2}">{{record.JFG.content}}</td>
+                                    <td ng-class="{ redState : record.ZW.color == 1,orangeState : record.ZW.color == 2}">{{record.ZW.content}}</td>
+                                    <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color == 2}">{{record.MOTOR.content}}</td>
+                                    <td ng-class="{ redState : record.ZWINC.color == 1,orangeState : record.ZWINC.color == 2}">{{record.ZWINC.content}}</td>
+
+                                    <td ng-class="{ redState : record.MOTOTTEMPINC.color == 1,orangeState : record.MOTOTTEMPINC.color == 2}">{{record.MOTOTTEMPINC.content}}</td>
+
+                                    <td>{{record.trainDate}}</td>
+                                    <td>{{record.trainState}}</td>
+                                    <td>
+                                        <a class="fa fa-table" aria-hidden="true" ng-click="confirm(record.trainOnlyId,record.trainId,record.trainDate,record.trainState)"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <select class="pull-left custom-pagesize form-control" ng-change="onChange()" ng-model='pagination.pageSize' ng-options='pageSize.value as pageSize.name for pageSize in pageSizes'></select>
+                                    </td>
+                                    <td colspan="13">
+                                        <ul class="custom-pagination pull-right">
+                                            <li ng-class="{ disabled : pagination.current == 1 }">
+                                                <a href="" ng-click="setCurrent(1)">&laquo;</a>
+                                            </li>
+                                            <li ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">
+                                                <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
+                                            </li>
+                                            <li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+                                                <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+                                            </li>
+
+                                            <li ng-class="{ disabled : pagination.current == pagination.totalPages }" class="ng-scope">
+                                                <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
+                                            </li>
+                                            <li ng-class="{ disabled : pagination.current == pagination.totalPages }">
+                                                <a href="" ng-click="setCurrent(pagination.totalPages)">&raquo;</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,135 @@
+<div class="row wrapper border-bottom bg-gray-lighter page-heading">
+    <div class="col-lg-10">
+        <h2 class="second-header">五次对比图</h2>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="real-content wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title main-dialog-box" style="padding-top: 30px;border-radius: 13px;">
+                    <div class="row">
+                        <form role="form" name="myForm">
+                            <div class="col-md-10 col-md-offset-1" ng-include src="'components/alert/alert.html'"></div>
+                            <div class="form-group col-md-4">
+                                <div layout="row" ng-cloak class="md-inline-form">
+                                    <mdp-date-picker required="" mdp-placeholder="起始时间"
+                                                     ng-disabled="formSearch.isLoading"
+                                                     ng-model="formSearch.startTime"></mdp-date-picker>
+                                    <mdp-time-picker required="" mdp-auto-switch="true"
+                                                     ng-disabled="formSearch.isLoading"
+                                                     ng-model="formSearch.startTime"></mdp-time-picker>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div layout="row" ng-cloak class="md-inline-form">
+                                    <mdp-date-picker required="" mdp-placeholder="终止时间"
+                                                     ng-disabled="formSearch.isLoading"
+                                                     ng-model="formSearch.endTime"></mdp-date-picker>
+                                    <mdp-time-picker required="" mdp-auto-switch="true"
+                                                     ng-disabled="formSearch.isLoading"
+                                                     ng-model="formSearch.endTime"></mdp-time-picker>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="float: right;">
+                                <md-button class="md-raised" ng-click="search()" ng-disabled="formSearch.isLoading"
+                                           style="margin-left: 10px;min-width: 70px;height: 20px;margin-top: 2px;">搜索
+                                </md-button>
+                            </div>
+                            <div class="form-group col-md-12" style="margin-left: 10px">
+                                <div class="col-md-3">
+
+                                    <div layout="row" ng-cloak class="md-inline-form">
+
+                                        <md-input-container class="md-block" style="width: 60px;">
+                                            <label>线路</label>
+                                            <input ng-model="line" disabled>
+                                        </md-input-container>
+
+                                        <div style="width: 120px;">
+                                            <md-autocomplete  flex="" required="" ng-model="formSearch.trainId"
+                                                             md-input-name="autocompleteTrainId" md-min-length="0"
+                                                             md-selected-item="selectedTrainId"
+                                                             md-selected-item-change="selectedTrainIdChange(trainId)"
+                                                             md-search-text="inputTrainId"
+                                                             md-search-text-change="searchInputChange(inputTrainId)"
+                                                             md-items="trainId in querySearch(inputTrainId)"
+                                                             md-item-text="trainId" md-floating-label="列车号"
+                                                             md-require-match>
+                                                <md-item-template>
+                                                    <span md-highlight-text="inputTrainId">{{trainId}}</span>
+                                                </md-item-template>
+                                                <div ng-messages="myForm.autocompleteTrainId.$error" ng-if="myForm.autocompleteTrainId.$touched">
+                                                    <div ng-message="required">此项<b>必需</b>填写</div>
+                                                    <div ng-message="md-require-match">该车号不存在，请重新填写</div>
+                                                </div>
+                                            </md-autocomplete>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="margin-top: 6px;" ng-cloak>
+                                    <md-radio-group layout="row" ng-model="formSearch.selectType">
+                                        <md-radio-button ng-repeat="type in selectType"
+                                                         ng-click=selectRadioButton(type.value,type.name)
+                                                         ng-value="type.value" class="md-primary">{{ type.name }}
+                                        </md-radio-button>
+                                    </md-radio-group>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="ibox-content main-dialog-box"
+                     style="margin-top: 20px;border-radius: 16px;background: rgb(255,255,255);padding: 0px 0px 0px 0px;">
+                    <div class="text-center" ng-show="formSearch.isLoading && !formSearch.isLoadFeature">
+                        <img src="assets/images/loading.gif"/>
+                    </div>
+                    <md-content ng-show="formSearch.isLoadFeature || formSearch.featureIsLoaded && formSearch.selectType == 1" style="border-radius: 16px;background-color: white">
+                        <md-tabs md-dynamic-height md-border-bottom >
+
+                            <md-tab label="峭度因子" ng-click="featureSearch(5)">
+                                <md-content class="md-padding"">
+                                    <div class="text-center" ng-show="formSearch.isLoading">
+                                        <img src="assets/images/loading.gif" />
+                                    </div>
+                                    <div id="qdyz" style="margin-top: 10px;margin-left: 10px;margin-right:20px;height:450px"></div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="峰值" ng-click="featureSearch(2)">
+                                <md-content class="md-padding">
+                                    <div class="text-center" ng-show="formSearch.isLoading">
+                                        <img src="assets/images/loading.gif" />
+                                    </div>
+                                    <div id="fz" style="margin-top: 10px;margin-left: 10px;margin-right:20px;height:450px"></div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="峰值因子" ng-click="featureSearch(3)">
+                                <md-content class="md-padding">
+                                    <div class="text-center" ng-show="formSearch.isLoading">
+                                        <img src="assets/images/loading.gif" />
+                                    </div>
+                                    <div id="fzyz" style="margin-top: 10px;margin-left: 10px;margin-right:20px;height:450px"></div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="均方根" ng-click="featureSearch(1)">
+                                <md-content class="md-padding">
+                                    <div class="text-center" ng-show="formSearch.isLoading">
+                                        <img src="assets/images/loading.gif" />
+                                    </div>
+                                    <div id="jfg" style="margin-top: 10px;margin-left: 10px;margin-right:20px;height:450px"></div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                    <div ng-show="!formSearch.isLoading && formSearch.isLoaded && formSearch.selectType != 1">
+                        <div id="otherchart" style="margin-top: 10px;margin-left: 10px;margin-right:20px;height:450px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="row wrapper border-bottom bg-gray-lighter page-heading">
+    <div class="col-lg-10">
+        <h2 class="second-header">最值均值</h2>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="real-content wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <form role="form" name="myForm">
+                    <div class="col-md-10 col-md-offset-1" ng-include src="'components/alert/alert.html'"></div>
+                </form>
+
+                <div class="ibox-content main-dialog-box" style="margin-top: 20px;border-radius: 16px;background: rgb(255,255,255);padding: 0px 0px 0px 0px;">
+                    <div class="text-center" ng-show="formSearch.isLoading">
+                        <img src="assets/images/loading.gif" />
+                    </div>
+                    <div class="table-responsive" ng-show="formSearch.isLoaded && !formSearch.isLoading">
+                        <table class="footable-driving-table footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                            <tr>
+
+                                <th>车号</th>
+                                <th>最大峰值</th>
+                                <th>最小峰值</th>
+                                <th>峰值平均</th>
+                                <th>最大峭度</th>
+                                <th>最小峭度</th>
+                                <th>峭度平均</th>
+                                <th>最大均方根</th>
+                                <th>最小均方根</th>
+                                <th>均方根平均</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr ng-repeat="record in reportRecords">
+                                <td>{{record.trainId}}</td>
+                                <td ng-class="{ redState : record.FZ.color == 1,orangeState : record.FZ.color == 2}">{{record.fzMax}}</td>
+                                <td ng-class="{ redState : record.FZYZ.color == 1,orangeState : record.FZYZ.color == 2}">{{record.fzMin}}</td>
+                                <td ng-class="{ redState : record.QDYZ.color == 1,orangeState : record.QDYZ.color == 2}">{{record.fzAvg}}</td>
+                                <td ng-class="{ redState : record.JFG.color == 1,orangeState : record.JFG.color == 2}">{{record.qdMax}}</td>
+                                <td ng-class="{ redState : record.ZW.color == 1,orangeState : record.ZW.color == 2}">{{record.qdMin}}</td>
+                                <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color == 2}">{{record.qdAvg}}</td>
+                                <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color == 2}">{{record.jfgMax}}</td>
+                                <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color == 2}">{{record.jfgMin}}</td>
+                                <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color == 2}">{{record.jfgAvg}}</td>
+                                <!--<td>-->
+                                    <!--<a class="fa fa-table" aria-hidden="true" ng-click="confirm(record.trainOnlyId,record.trainId,record.trainDate,record.trainState)"></a>-->
+                                <!--</td>-->
+                            </tr>
+                            </tbody>
+                            <!--<tfoot>-->
+                            <!--<tr>-->
+                                <!--<td>-->
+                                    <!--<select class="pull-left custom-pagesize form-control" ng-change="onChange()" ng-model='pagination.pageSize' ng-options='pageSize.value as pageSize.name for pageSize in pageSizes'></select>-->
+                                <!--</td>-->
+                                <!--<td colspan="13">-->
+                                    <!--<ul class="custom-pagination pull-right">-->
+                                        <!--<li ng-class="{ disabled : pagination.current == 1 }">-->
+                                            <!--<a href="" ng-click="setCurrent(1)">&laquo;</a>-->
+                                        <!--</li>-->
+                                        <!--<li ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">-->
+                                            <!--<a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>-->
+                                        <!--</li>-->
+                                        <!--<li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">-->
+                                            <!--<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>-->
+                                        <!--</li>-->
+
+                                        <!--<li ng-class="{ disabled : pagination.current == pagination.totalPages }" class="ng-scope">-->
+                                            <!--<a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>-->
+                                        <!--</li>-->
+                                        <!--<li ng-class="{ disabled : pagination.current == pagination.totalPages }">-->
+                                            <!--<a href="" ng-click="setCurrent(pagination.totalPages)">&raquo;</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tfoot>-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

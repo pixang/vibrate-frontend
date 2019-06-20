@@ -1,0 +1,75 @@
+<div class="inmodal">
+    <div class="modal-header" style="padding:14px"></div>
+    <div class="modal-body">
+
+        <div class="col-md-12" ng-include src="'components/alert/alert.html'"></div>
+
+        <div class="row main-dialog-content" ng-show="!form.isLoading && form.isLoaded">
+
+            <div class="col-md-12 main-dialog-head">
+                <div class="col-md-5">
+                    <div>
+                        <h3 style="padding: 0;margin: 0 0 4px 0;font-size: 20px;font-weight: 500;">
+                            今日过车</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="table-responsive" ng-show="!form.isLoading && form.isLoaded" style="background-color: white;border-radius: 8px;">
+                    <table class="footable-for-dialog footable table table-stripped toggle-arrow-tiny">
+                        <thead>
+                            <tr>
+                                <th>车号</th>
+                                <th>峰值</th>
+                                <th>峰值因子</th>
+                                <th>峭度</th>
+                                <th>峭度因子</th>
+                                <th>均方根</th>
+                                <th>轴箱温度/˚C</th>
+                                <th>电机温度/˚C</th>
+                                <th>电机温升/˚C</th>
+
+                                <th>轴箱温升/˚C</th>
+                                <th>状态</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="animate-repeat" ng-repeat="record in currentDayRecords">
+                                <td>{{record.trainId}}</td>
+                                <td ng-class="{ redState : record.FZ.color == 1,orangeState : record.FZ.color  == 2}">{{record.FZ.content}}</td>
+                                <td ng-class="{ redState : record.FZYZ.color == 1,orangeState : record.FZYZ.color  == 2}">{{record.FZYZ.content}}</td>
+                                <td ng-class="{ redState : record.QD.color == 1,orangeState : record.QD.color  == 2}">{{record.QD.content}}</td>
+
+                                <td ng-class="{ redState : record.QDYZ.color == 1,orangeState : record.QDYZ.color  == 2}">{{record.QDYZ.content}}</td>
+                                <td ng-class="{ redState : record.JFG.color == 1,orangeState : record.JFG.color  == 2}">{{record.JFG.content}}</td>
+                                <td ng-class="{ redState : record.ZW.color == 1,orangeState : record.ZW.color  == 2}">{{record.ZW.content}}</td>
+                                <td ng-class="{ redState : record.MOTOR.color == 1,orangeState : record.MOTOR.color  == 2}">{{record.MOTOR.content}}</td>
+
+                                <td ng-class="{ redState : record.MOTOTTEMPINC.color == 1,orangeState : record.MOTOTTEMPINC.color  == 2}">{{record.MOTOTTEMPINC.content}}</td>
+                                <td ng-class="{ redState : record.ZWINC.color == 1,orangeState : record.ZWINC.color  == 2}">{{record.ZWINC.content}}</td>
+
+                                <td>{{record.trainState}}</td>
+                                <td>{{record.trainDate}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <md-button class="md-raised" ng-click="cancel()" ng-disabled="form.isLoading">
+            关闭
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="exportToCsv()" ng-disabled="!form.isLoaded">
+            下载报表
+        </md-button>
+    </div>
+    <div style="text-align:center;position:absolute;top:40px;left:0;width:100%;height:100%;zIndex:1;" ng-show="form.isLoading">
+        <img src="assets/images/loading.gif" />
+    </div>
+</div>
