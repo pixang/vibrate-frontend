@@ -28,8 +28,6 @@ require('bootstrap-ui-datetime-picker');
 require('icheck');
 require('lodash');
 require('metismenu');
-require('moment');
-require('moment-timezone');
 require('ng-file-model');
 require('pace-js');
 require('footable');
