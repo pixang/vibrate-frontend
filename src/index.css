@@ -3828,6 +3828,7 @@ md-input-container.md-input-has-value .md-select-value > span:not(.md-select-ico
     min-height: 26px;
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
+    color: rgba(0,0,0,0.87);
     flex-grow: 1; }
 .md-select-value > span:not(.md-select-icon) {
     max-width: 100%;

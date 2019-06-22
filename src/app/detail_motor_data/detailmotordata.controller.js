@@ -106,8 +106,6 @@ module.controller('DetailMotorDataController', [
                 function (data) {
                     $scope.detailVibrateRecords = data;
                     $scope.$broadcast('DetailDataUpdated');
-                },
-                function (err) {
                 }
             );
             $scope.detailVibrateRecords = [];
@@ -116,8 +114,6 @@ module.controller('DetailMotorDataController', [
                 function (data) {
                     $scope.detailMotorRecords = data;
                     $scope.$broadcast('DetailDataUpdated');
-                },
-                function (err) {
                 }
             );
             $scope.detailMotorRecords = [];

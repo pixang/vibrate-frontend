@@ -10,8 +10,6 @@ module.controller('MainController', [
         $scope.trainsInfo = [];
         $scope.currentUser = {};
         $scope.line = $const.LINE;
-        $scope.currentUser.username = $cookies.get('currentUser');
-        $scope.currentUser.userrole = $cookies.get('currentUserRole');
 
         $scope.lightStatus = [];
 
@@ -42,7 +40,7 @@ module.controller('MainController', [
 
                 mainService.retrieveTrainInfo().then(
                     function (record) {
-                        if (typeof (record) == "string") {
+                        if (typeof (record) === "string") {
                             return
                         }
                         var index;
@@ -88,15 +86,12 @@ module.controller('MainController', [
                         if ($cookies.get('currentUser')) {
                             $scope.warningLight(currentState, trainId, trainOnlyId);
                         }
-                    },
-                    function (err) {
-                        $alert.error(err.error, $scope);
                     }
                 )
             } else {
                 mainService.retrieveAllTrainInfo().then(
                     function (record) {
-                        if (typeof (record) == "string") {
+                        if (typeof (record) === "string") {
                             return
                         }
                         var index;
@@ -126,9 +121,6 @@ module.controller('MainController', [
                         objectForTrainsInfo.trainsInfo = $scope.trainsInfo;
                         localStorage.setItem("trainsInfoVibrate", JSON.stringify(objectForTrainsInfo));
                         sessionStorage.setItem('isRunning', "Y");
-                    },
-                    function (err) {
-                        $alert.error(err.error, $scope);
                     }
                 )
             }
@@ -190,7 +182,7 @@ module.controller('MainController', [
 
         $scope.$on("UserChange",
             function (event, user) {
-                if (user === "logout") {
+                if (user == "logout") {
                     $scope.currentUser.username = null;
                     $scope.currentUser.userrole = null;
                     return
@@ -224,13 +216,13 @@ module.controller('MainController', [
 
         $scope.$on("ResizePage", function (event) {
 
-            if ($location.url() == '/index/main') {
+            if ($location.url() === '/index/main') {
                 $timeout(function () {
                     fix_mainpage_height();
                 }, 500);
                 return
             }
-            if ($location.url() == '/auth') {
+            if ($location.url() === '/auth') {
                 $timeout(function () {
                     fix_auth_height();
                 }, 0);
@@ -364,6 +356,9 @@ module.controller('MainController', [
         };
 
         angular.element(document).ready(function () {
+            if ($location.url() === '/index/main') {
+                $rootScope.$broadcast("ShowDashboard");
+            }
             $('[data-toggle="tooltip"]').tooltip();
 
             $(window).bind("resize scroll", function () {
@@ -378,16 +373,13 @@ module.controller('MainController', [
             }
 
             $interval(function () {
-                if (!$cookies.get('currentUser')) {
-                    return
-                }
                 var date = new Date();
                 var h = date.getHours() < 10 ? '0' + (date.getHours()) : '' + (date.getHours());
                 var m = date.getMinutes() < 10 ? '0' + (date.getMinutes()) : '' + (date.getMinutes());
-                if (h + m == "2300") {
+                if (h + m === "2300") {
                     $scope.openCurrentdayDialog();
                 }
-                if (h + m == "0010") {
+                if (h + m === "0010") {
                     initTrainsInfo();
                     sessionStorage.removeItem('isRunning');
                     localStorage.removeItem("trainsInfoVibrate");
@@ -395,8 +387,8 @@ module.controller('MainController', [
                 $scope.getTrainInfo();
             }, 60 * 1000);
 
-            if ($location.url() == '/index/main') {
-                $rootScope.$broadcast("ShowDashboard", "");
+            if ($location.url() === '/index/main') {
+                $rootScope.$broadcast("ShowDashboard");
             }
             $rootScope.$broadcast('ResizePage');
         });
@@ -507,12 +499,8 @@ module.controller('CurrentdayDialog', [
                     $scope.$broadcast('CurrentDayRecordUpdate');
                 },
                 function (err) {
-                    $timeout(function () {
-                        $alert.error(err.error, $scope);
-                        $scope.exception = true;
-
-                        $scope.form.setLoading(false);
-                    }, 1000);
+                    $scope.exception = true;
+                    $scope.form.setLoading(false);
                 }
             )
         };
@@ -599,7 +587,7 @@ module.controller('MainDialogController', [
                     $scope.form = trainDetail;
 
                     $scope.form.trainDirection_num = trainDirection;
-                    $scope.form.trainDirection = trainDirection == 0 ? '上行' : '下行';
+                    $scope.form.trainDirection = trainDirection === 0 ? '上行' : '下行';
                     $scope.form.trainState_str = $const.TRAIN_STATE_V[$scope.form.trainState - 1];
 
                     var str = $scope.form.trainDate;
@@ -634,7 +622,7 @@ module.controller('MainDialogController', [
                 trainDate: $scope.form.trainDate,
                 trainState: $scope.form.trainState_str
             });
-            $rootScope.$broadcast("HideDashboard", "wusuowei");
+            $rootScope.$broadcast("HideDashboard");
             $modalInstance.close();
         };
     }
@@ -671,7 +659,7 @@ module.controller('WarningDialogController', [
             $scope.form.setLoading(true);
             mainService.retrieveAbnormalState(trainOnlyId).then(
                 function (abnormalInfo) {
-                    if (typeof (abnormalInfo) == "string") {
+                    if (typeof (abnormalInfo) === "string") {
                         $alert.error(abnormalInfo, $scope);
                         $scope.form.setLoading(false);
 
@@ -690,7 +678,6 @@ module.controller('WarningDialogController', [
                     $scope.form.setLoading(false);
                 },
                 function (err) {
-
                     $timeout(function () {
                         $scope.form.setLoading(false);
                     }, 1000);
@@ -706,7 +693,6 @@ module.controller('WarningDialogController', [
         };
         $scope.$on('modal.closing', function () {
             var status = lightStatus.pop();
-
             if (lightStatus.length === 0) {
                 mainService.triggerLight(0);
             }
@@ -733,7 +719,7 @@ module.controller('PasswordChangeController', [
         $scope.changePassword = function () {
             $alert.clear();
             if ($scope.form.username && $scope.form.newPassword1 && $scope.form.newPassword2 && $scope.form.oldPassword) {
-                if ($scope.form.newPassword1 != $scope.form.newPassword2) {
+                if ($scope.form.newPassword1 !== $scope.form.newPassword2) {
                     $alert.error("输入的密码不一致");
                     return
                 }
@@ -764,11 +750,8 @@ module.controller('PasswordChangeController', [
                     }
                 },
                 function (err) {
-
                     $timeout(function () {
-                        $alert.error(err.error, $scope);
                         $scope.exception = true;
-
                         $scope.form.setLoading(false);
                     }, 1000);
                 }

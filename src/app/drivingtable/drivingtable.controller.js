@@ -44,7 +44,6 @@ module.controller("DrivingTableController", ['$scope', '$state', '$rootScope', '
 
         $scope.search = function () {
             $alert.clear();
-            var err = [];
             var searchCondition = {};
             // 取消注释
             var currentTime = new Date("2018,03,15");
@@ -74,7 +73,6 @@ module.controller("DrivingTableController", ['$scope', '$state', '$rootScope', '
                     $scope.$broadcast('ReportDataUpdated');
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )
@@ -201,7 +199,6 @@ module.controller("MaxMinAverageController", ['$scope', '$state', '$rootScope', 
 
         $scope.search = function () {
             $alert.clear();
-            var err = [];
 
             $scope.formSearch.setLoaded(false);
             $scope.formSearch.setLoading(true);
@@ -221,7 +218,6 @@ module.controller("MaxMinAverageController", ['$scope', '$state', '$rootScope', 
                     $scope.$broadcast('ReportDataUpdated');
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )

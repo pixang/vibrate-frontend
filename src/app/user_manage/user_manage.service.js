@@ -18,7 +18,7 @@ angular.module('supportAdminApp')
                 });
                 return request.then(
                     function (response) {
-                        if (response.data.code == 0) {
+                        if (response.data.code === 0) {
                             return response.data.data;
                         }
                         else {
@@ -46,7 +46,7 @@ angular.module('supportAdminApp')
 
                 return request.then(
                     function (response) {
-                        if (response.data.code == 0) {
+                        if (response.data.code === 0) {
                             return response.data.data;
                         }
                         else {
@@ -57,7 +57,7 @@ angular.module('supportAdminApp')
                         return $q.reject({ error: error });
                     }
                 );
-            }
+            };
 
 
             // UserManageService.createRecord = function(data){

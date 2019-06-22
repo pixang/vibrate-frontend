@@ -40,7 +40,7 @@ module.controller("UserMangae", ['$scope', '$state', '$rootScope', '$timeout', '
             $scope.formSearch.setLoading(true);
             userManageService.retrieveUser().then(
                 function (data) {
-                    if (typeof (data) == "string") {
+                    if (typeof (data) === "string") {
                         $alert.error(data);
                         $scope.formSearch.setLoading(false);
                         return
@@ -50,7 +50,6 @@ module.controller("UserMangae", ['$scope', '$state', '$rootScope', '$timeout', '
                     $scope.formSearch.setLoading(false);
                 },
                 function (err) {
-                    $alert.error(err);
                     $scope.formSearch.setLoading(false);
                 }
             )
@@ -104,7 +103,7 @@ module.controller('UserEditDialogController', [
             $alert.clear();
             var userForSave = {};
 
-            if (user.userrole == $scope.form.userrole && user.userstate == $scope.form.userstate) {
+            if (user.userrole === $scope.form.userrole && user.userstate === $scope.form.userstate) {
                 $alert.error('用户信息未被更改！', $scope);
                 return;
             }
@@ -117,7 +116,7 @@ module.controller('UserEditDialogController', [
                 $scope.form.setLoading(true);
                 userManageService.saveUser(userForSave).then(
                     function (data) {
-                        if (data == "更新成功") {
+                        if (data === "更新成功") {
                             user.userrole = parseInt($scope.form.userrole);
                             user.userstate = parseInt($scope.form.userstate);
                             $scope.form.setLoading(false);
@@ -131,7 +130,6 @@ module.controller('UserEditDialogController', [
                         }
                     },
                     function (err) {
-                        $alert.error("服务器发生错误", $scope);
                         $scope.form.setLoading(false);
                     }
                 );

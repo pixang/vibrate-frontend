@@ -87,7 +87,7 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
                 $scope.formSearch.selectType = value;
                 $scope.formSearch.isLoaded = false;
             }
-            if (value == 1 || value == 2) {
+            if (value === 1 || value === 2) {
                 $scope.formSearch.wheelDisabled = false;
                 $scope.formSearch.motorDisabled = true;
                 $scope.formSearch.carriageNumDisabled = false;
@@ -160,15 +160,15 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
                 $alert.error("不存在该车号，请检查");
                 return
             }
-            if (($scope.formSearch.selectType == 1 || $scope.formSearch.selectType == 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum != 0)) {
+            if (($scope.formSearch.selectType === 1 || $scope.formSearch.selectType === 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum !== 0)) {
                 $alert.error("查询条件有误，请选择车轮号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum != 0)) {
+            if ($scope.formSearch.selectType === 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum !== 0)) {
                 $alert.error("查询条件有误，请选择电机号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
+            if ($scope.formSearch.selectType === 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
                 $alert.error("查询条件有误，" + $scope.formSearch.carriageNum + "节车厢没有电机");
                 return
             }
@@ -177,7 +177,7 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
                 return
             }
             searchCondition.trainId = $scope.formSearch.trainId;
-            if ($scope.formSearch.trainId == "全部") {
+            if ($scope.formSearch.trainId === "全部") {
                 searchCondition.trainId = 0;
             }
             searchCondition.carriageNum = $scope.formSearch.carriageNum;
@@ -216,7 +216,6 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
                     $scope.$broadcast('ReportDataUpdated');
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )

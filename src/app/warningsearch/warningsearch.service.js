@@ -5,8 +5,6 @@ angular.module('supportAdminApp')
         function ($log, $q, $http, $const) {
             // local dev
             var API_URL = $const.API_URL;
-            var trainState = $const.TRAIN_STATE;
-
             var WarningSearchService = {};
 
             WarningSearchService.retrieveRecord = function (searchCondition) {
@@ -23,7 +21,7 @@ angular.module('supportAdminApp')
                 });
                 return request.then(
                     function (response) {
-                        if (response.data.code == 0) {
+                        if (response.data.code === 0) {
                             return WarningSearchService.createRecord(response.data.data);
                         }
                         else {

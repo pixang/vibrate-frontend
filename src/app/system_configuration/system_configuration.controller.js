@@ -73,14 +73,13 @@ module.controller("SystemConfiguration", ['$scope', '$state','$rootScope','$time
             $scope.formSearch.setLoaded(false);
             systemConfigurationService.saveThresholdData(searchCondition).then(
                 function(data){
-                    if(data == "更新成功"){
+                    if(data === "更新成功"){
                         $alert.info("保存成功");
                     }
                     $scope.formSearch.setLoaded(true);
                     $scope.formSearch.setLoading(false);
                 },
                 function(err){
-                    $alert.error("服务器出错，未能保存成功");
                     $scope.formSearch.setLoading(false);
                 }
             )
@@ -89,7 +88,7 @@ module.controller("SystemConfiguration", ['$scope', '$state','$rootScope','$time
         $scope.searchThresholdData();
 
         $scope.backFromConfigurationPage = function() {
-            $rootScope.$broadcast("ShowDashboard","wusuowei");
+            $rootScope.$broadcast("ShowDashboard");
             $state.go('index.main');
         };
 

@@ -6,7 +6,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
     function ($scope, $state, $rootScope, $timeout, $mdpDatePicker, $mdpTimePicker, $alert, compareService, $const) {
 
         $scope.selectedItem = null;
-        $scope.inputTrainId = null;
+        $scope.inputTrainId = '001002';
         $scope.querySearch = function (query) {
             return query ? $scope.trainIds.filter(createFilterFor(query)) : $scope.trainIds;
         };
@@ -47,7 +47,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
             oldEndTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
             startTime: new Date(),
             endTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-            trainId: null,
+            trainId: '001002',
 
             zdType: null,
             zdLoaded: [],
@@ -113,7 +113,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
             searchCondition.trainId = $scope.formSearch.trainId;
             searchCondition.selectType = $scope.formSearch.selectType;
 
-            if (searchCondition.selectType == 1) {
+            if (searchCondition.selectType === 1) {
                 $scope.formSearch.setLoadFeature(true);
 
                 $scope.formSearch.zdType = $scope.formSearch.zdType ? $scope.formSearch.zdType : 5;
@@ -125,7 +125,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
             $scope.formSearch.setLoading(true);
             compareService.retrieveRecord(searchCondition).then(
                 function (data) {
-                    if (typeof (data) == "string") {
+                    if (typeof (data) === "string") {
                         $alert.error(data);
                         $scope.formSearch.setLoading(false);
                         return
@@ -144,7 +144,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
                             str.slice(8, 10) + ':' + str.slice(10, 12) + ':' + str.slice(12, 14);
 
                         for (var prop in data[idx].value) {
-                            if (idx == 0) {
+                            if (idx === 0) {
                                 records.xAxis.push(prop);
                             }
                             record.data.push(data[idx].value[prop]);
@@ -157,7 +157,7 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
                     }
 
                     $scope.compareRecords = records;
-                    if ($scope.formSearch.selectType == 1) {
+                    if ($scope.formSearch.selectType === 1) {
                         $scope.formSearch.featureIsLoaded = true;
 
                         $scope.formSearch.zdLoaded.push($scope.formSearch.zdType);
@@ -185,14 +185,13 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
                     $scope.formSearch.setLoading(false);
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )
         };
         $scope.compareRecords = {};
         $scope.featureSearch = function (feature) {
-            if ($scope.formSearch.zdLoaded.indexOf(feature) != -1) {
+            if ($scope.formSearch.zdLoaded.indexOf(feature) !== -1) {
                 return
             }
             $scope.formSearch.zdType = feature;
@@ -201,7 +200,6 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
 
         $scope.$on('ChartDataUpdated', function (event) {
             $timeout(function () {
-                $rootScope.$broadcast('RecoverNavbar');
                 $rootScope.$broadcast('ResizePage');
             }, 100);
         });

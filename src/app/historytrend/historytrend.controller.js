@@ -6,7 +6,7 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
     function ($scope, $state, $rootScope, $timeout, $mdpDatePicker, $mdpTimePicker, $alert, historyTrendService, $const) {
 
         $scope.selectedItem = null;
-        $scope.inputTrainId = null;
+        $scope.inputTrainId = '001002';
         $scope.querySearch = function (query) {
             return query ? $scope.trainIds.filter(createFilterFor(query)) : $scope.trainIds;
         };
@@ -65,7 +65,7 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
                 $scope.formSearch.selectType = value;
                 $scope.formSearch.isLoaded = false;
             }
-            if (value == 1 || value == 2) {
+            if (value === 1 || value === 2) {
                 $scope.formSearch.wheelDisabled = false;
                 $scope.formSearch.motorDisabled = true;
                 $scope.formSearch.carriageNumDisabled = false;
@@ -81,9 +81,9 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
         $scope.formSearch = {
             startTime: new Date(),
             endTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-            trainId: null,
+            trainId: '001002',
 
-            carriageNum: 'IB',
+            carriageNum: '奇A',
             carriageNumDisabled: false,
 
             wheelNum: '1',
@@ -134,19 +134,19 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
                 $alert.error(err.join('! '));
                 return
             }
-            if ($scope.trainIds.indexOf($scope.formSearch.trainId) == -1) {
+            if ($scope.trainIds.indexOf($scope.formSearch.trainId) === -1) {
                 $alert.error("不存在该车号，请检查");
                 return
             }
-            if (($scope.formSearch.selectType == 1 || $scope.formSearch.selectType == 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum != 0)) {
+            if (($scope.formSearch.selectType === 1 || $scope.formSearch.selectType === 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum !== 0)) {
                 $alert.error("查询条件有误，请选择车轮号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum != 0)) {
+            if ($scope.formSearch.selectType === 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum !== 0)) {
                 $alert.error("查询条件有误，请选择电机号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
+            if ($scope.formSearch.selectType === 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
                 $alert.error("查询条件有误，" + $scope.formSearch.carriageNum + "节车厢没有电机");
                 return
             }
@@ -166,7 +166,7 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
             $scope.formSearch.setLoading(true);
             historyTrendService.retrieveRecord(searchCondition).then(
                 function (data) {
-                    if (typeof (data) == "string") {
+                    if (typeof (data) === "string") {
                         $alert.error(data);
                         $scope.formSearch.setLoading(false);
                         return
@@ -176,8 +176,8 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
                         value: []
                     };
 
-                    if ($scope.formSearch.selectType == 1) {
-                        var fake = $scope.feature;;
+                    if ($scope.formSearch.selectType === 1) {
+                        var fake = $scope.feature;
                         for (var prop in data) {
                             var cell = data[prop];
                             for (var idx = 0, len = cell.length; idx < len; idx++) {
@@ -204,7 +204,7 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
                         }
                         $scope.zwmotor = record;
 
-                        if ($scope.formSearch.selectType == 2) {
+                        if ($scope.formSearch.selectType === 2) {
                             $scope.otherChartTitle = "轴温趋势图";
                             $scope.otherChartYaxisTitle = "轴温";
                         } else {
@@ -219,7 +219,6 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
                     $scope.formSearch.setLoading(false);
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )
@@ -414,7 +413,6 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
         angular.element(document).ready(function () {
             $rootScope.$broadcast("HideDashboard");
             $('.footable').footable({ paginate: false });
-  
             $rootScope.$broadcast('ResizePage');
 
         });

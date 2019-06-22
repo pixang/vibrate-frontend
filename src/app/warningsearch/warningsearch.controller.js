@@ -104,7 +104,7 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
                 $scope.formSearch.selectType = value;
                 $scope.formSearch.isLoaded = false;
             }
-            if (value == 1 || value == 2) {
+            if (value === 1 || value === 2) {
                 $scope.formSearch.wheelDisabled = false;
                 $scope.formSearch.motorDisabled = true;
                 $scope.formSearch.carriageNumDisabled = false;
@@ -165,19 +165,19 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
                 $alert.error(err.join('! '));
                 return
             }
-            if ($scope.trainIds.indexOf($scope.formSearch.trainId) == -1) {
+            if ($scope.trainIds.indexOf($scope.formSearch.trainId) === -1) {
                 $alert.error("不存在该车号，请检查");
                 return
             }
-            if (($scope.formSearch.selectType == 1 || $scope.formSearch.selectType == 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum != 0)) {
+            if (($scope.formSearch.selectType === 1 || $scope.formSearch.selectType === 2) && (!$scope.formSearch.wheelNum && $scope.formSearch.wheelNum !== 0)) {
                 $alert.error("查询条件有误，请选择车轮号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum != 0)) {
+            if ($scope.formSearch.selectType === 3 && (!$scope.formSearch.motorNum && $scope.formSearch.motorNum !== 0)) {
                 $alert.error("查询条件有误，请选择电机号");
                 return
             }
-            if ($scope.formSearch.selectType == 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
+            if ($scope.formSearch.selectType === 3 && ($scope.formSearch.carriageNum === "IA" || $scope.formSearch.carriageNum === "IIA")) {
                 $alert.error("查询条件有误，" + $scope.formSearch.carriageNum + "节车厢没有电机");
                 return
             }
@@ -186,7 +186,7 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
                 return
             }
             searchCondition.trainId = $scope.formSearch.trainId;
-            if ($scope.formSearch.trainId == "全部") {
+            if ($scope.formSearch.trainId === "全部") {
                 searchCondition.trainId = 0;
             }
             searchCondition.carriageNum = $scope.formSearch.carriageNum;
@@ -209,7 +209,7 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
             $scope.formSearch.setLoading(true);
             warningSearchService.retrieveRecord(searchCondition).then(
                 function (data) {
-                    if (typeof (data) == "string") {
+                    if (typeof (data) === "string") {
                         $alert.error(data);
 
                         $scope.formSearch.setLoading(false);
@@ -223,11 +223,10 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
 
                     $scope.pagination.current = data.pageNum;
                     $scope.pagination.totalPages = data.pages;
-                    $scope.pages = generatePagesArray($scope.pagination.current, $scope.pagination.totalPages, 9)
+                    $scope.pages = generatePagesArray($scope.pagination.current, $scope.pagination.totalPages, 9);
                     $scope.$broadcast('ReportDataUpdated');
                 },
                 function (err) {
-                    $alert.error("服务器出错", $scope);
                     $scope.formSearch.setLoading(false);
                 }
             )
@@ -310,7 +309,7 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
             pageSize: $scope.pageSizes[1].value,
         };
         $scope.setCurrent = function (num) {
-            if (num === '...' || num == $scope.pagination.current || num == 0 || num == ($scope.pagination.totalPages + 1)) {
+            if (num === '...' || num === $scope.pagination.current || num === 0 || num === ($scope.pagination.totalPages + 1)) {
                 return
             }
             $scope.pagination.current = num;
