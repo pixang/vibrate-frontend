@@ -9,7 +9,6 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
             $timeout(function () {
                 $('.footable-report-search').footable({ paginate: false });
                 $('.footable-report-search').trigger('footable_redraw');
-                $rootScope.$broadcast('ResizePage');
             }, 100);
         });
 
@@ -361,11 +360,8 @@ module.controller("ReportSearchController", ['$scope', '$state', '$rootScope', '
         }
 
         angular.element(document).ready(function () {
-            $rootScope.$broadcast("HideDashboard", "wusuowei");
+            $rootScope.$broadcast("HideDashboard");
             $('.footable').footable({ paginate: false });
-
-            $rootScope.$broadcast('ResizePage');
-
         });
     }]);
 

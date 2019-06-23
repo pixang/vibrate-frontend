@@ -10,6 +10,7 @@ angular.module('supportAdminApp')
                     config.headers.Authorization = 'Bearer ' + $cookies.get('token');
                     config.headers.currentUser = $cookies.get('currentUser');
                 }
+                console.log('config: ' + JSON.stringify(config))
                 return config;
             },
             'responseError': function(response) {

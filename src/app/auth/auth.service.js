@@ -83,6 +83,10 @@ angular.module('supportAdminApp')
       );
     };
     authService.logout = function (token) {
+      $cookies.remove('token');
+      $cookies.remove('currentUser');
+      $cookies.remove('currentUserRole');
+      $cookies.remove('currentUserState');
       var $http = $injector.get('$http');
       var request = $http({
         method: 'GET',
@@ -93,10 +97,6 @@ angular.module('supportAdminApp')
       });
       return request.then(
         function (response) {
-          $cookies.remove('token');
-          $cookies.remove('currentUser');
-          $cookies.remove('currentUserRole');
-          $cookies.remove('currentUserState');
           if (response.data.code == 0) {
             $rootScope.$broadcast('UserChange', "logout");
             return true;

@@ -13,7 +13,6 @@ module.controller("UserMangae", ['$scope', '$state', '$rootScope', '$timeout', '
         $scope.$on('UserTableUpdated', function (event) {
             $timeout(function () {
                 $('.footable').trigger('footable_redraw');
-                $rootScope.$broadcast('ResizePage');
             }, 100);
         });
 
@@ -70,7 +69,6 @@ module.controller("UserMangae", ['$scope', '$state', '$rootScope', '$timeout', '
         angular.element(document).ready(function () {
             $rootScope.$broadcast("HideDashboard");
             $scope.search();
-            $rootScope.$broadcast('ResizePage');
         });
     }]);
 

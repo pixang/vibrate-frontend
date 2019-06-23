@@ -8,7 +8,6 @@ angular.module('supportAdminApp')
             var WarningSearchService = {};
 
             WarningSearchService.retrieveRecord = function (searchCondition) {
-
                 var payload = JSON.stringify(searchCondition);
 
                 var request = $http({

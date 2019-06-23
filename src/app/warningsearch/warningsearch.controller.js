@@ -9,7 +9,6 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
             $timeout(function () {
                 $('.footable-report-search').footable({ paginate: false });
                 $('.footable-report-search').trigger('footable_redraw');
-                $rootScope.$broadcast('ResizePage');
             }, 100);
         });
 
@@ -385,6 +384,5 @@ module.controller("WarningSearchController", ['$scope', '$state', '$rootScope', 
             $rootScope.$broadcast("HideDashboard");
             $('.footable').footable({ paginate: false });
             $scope.search();
-            $rootScope.$broadcast('ResizePage');
         });
     }]);

@@ -10,7 +10,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right" style="left: auto;">
-                    <li class="dropdown-header">欢迎，<font color="#333333">{{currentUser.username}}&nbsp; </font></li>
+                    <li class="dropdown-header">欢迎，<span color="#333333">{{currentUser.username}}&nbsp; </span></li>
 
                     <li class="divider"></li>
                 
@@ -43,36 +43,35 @@
            jfg = $('#jfg'),
     otherchart = $('#otherchart');
 
-        if (qd.length > 0) {
+        if (qd.highcharts()) {
             setTimeout(function () {
                 qd.highcharts().reflow();
             },600);
         }
-        if (qdyz.length > 0) {
+        if (qdyz.highcharts()) {
             setTimeout(function () {
                 qdyz.highcharts().reflow();
             },600);
         }
-        if (fz.length > 0) {
+        if (fz.highcharts()) {
             setTimeout(function () {
                 fz.highcharts().reflow();
             },600);
         }
-        if (fzyz.length > 0) {
+        if (fzyz.highcharts()) {
             setTimeout(function () {
                 fzyz.highcharts().reflow();
             },600);
         }
-        if (jfg.length > 0) {
+        if (jfg.highcharts()) {
             setTimeout(function () {
                 jfg.highcharts().reflow();
             },600);
         }
-        if (otherchart.length > 0) {
+        if (otherchart.highcharts()) {
             setTimeout(function () {
                otherchart.highcharts().reflow();
             },600);
         }
-        console.log("window want to resize");
     });
 </script>

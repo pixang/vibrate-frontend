@@ -106,7 +106,6 @@ angular.module('supportAdminApp')
                 );
             };
 
-
             MainService.retrieveAbnormalState = function (trainOnlyId) {
                 var request = $http({
                     method: 'GET',

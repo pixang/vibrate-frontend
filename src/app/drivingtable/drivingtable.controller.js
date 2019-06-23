@@ -11,7 +11,6 @@ module.controller("DrivingTableController", ['$scope', '$state', '$rootScope', '
             $timeout(function () {
                 $('.footable-driving-table').footable({ paginate: false });
                 $('.footable-driving-table').trigger('footable_redraw');
-                $rootScope.$broadcast('ResizePage');
             }, 100);
         });
 
@@ -175,7 +174,6 @@ module.controller("MaxMinAverageController", ['$scope', '$state', '$rootScope', 
             $timeout(function () {
                 $('.footable-driving-table').footable({ paginate: false });
                 $('.footable-driving-table').trigger('footable_redraw');
-                $rootScope.$broadcast('ResizePage');
             }, 100);
         });
 

@@ -8,7 +8,6 @@ angular.module('supportAdminApp')
             var UserManageService = {};
 
             UserManageService.retrieveUser = function () {
-
                 var request = $http({
                     method: 'GET',
                     url: API_URL + '/user/allusers',
@@ -30,7 +29,6 @@ angular.module('supportAdminApp')
                     }
                 );
             }
-
 
             UserManageService.saveUser = function (user) {
                 var payload = JSON.stringify(user);

@@ -28,7 +28,6 @@ module.controller('DetailMotorDataController', [
                     $('.footable-for-vibrate').footable({ paginate: false });
                     $('.footable-for-vibrate').trigger('footable_redraw');
                 }, 100);
-                $rootScope.$broadcast('ResizePage');
             }
 
         });

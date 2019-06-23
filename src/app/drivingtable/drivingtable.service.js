@@ -3,10 +3,7 @@
 angular.module('supportAdminApp')
     .factory('DrivingTableService', ['$log', '$q', '$http', 'constants',
         function ($log, $q, $http, $const) {
-
             var API_URL = $const.API_URL;
-            var trainState = $const.TRAIN_STATE;
-
             var DrivingTableService = {};
 
             DrivingTableService.retrieveRecord = function (searchCondition) {

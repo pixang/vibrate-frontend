@@ -232,17 +232,6 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
         };
         $scope.zwmotor = {};
         $scope.$on('FeatureChartDataUpdated', function (event) {
-            $timeout(function () {
-                $rootScope.$broadcast('ResizePage');
-            }, 100);
-        });
-        $scope.$on('OtherChartDataUpdated', function (event) {
-            $timeout(function () {
-                $rootScope.$broadcast('ResizePage');
-            }, 100);
-        });
-
-        $scope.$on('FeatureChartDataUpdated', function (event) {
             var dafaultMenuItem = Highcharts.getOptions().exporting.buttons.contextButton.menuItems;
 
             var qdyz = new Highcharts.Chart({
@@ -413,7 +402,5 @@ module.controller("HistoryTrendController", ['$scope', '$state', '$rootScope', '
         angular.element(document).ready(function () {
             $rootScope.$broadcast("HideDashboard");
             $('.footable').footable({ paginate: false });
-            $rootScope.$broadcast('ResizePage');
-
         });
     }]);

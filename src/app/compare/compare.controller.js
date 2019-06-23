@@ -197,14 +197,6 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
             $scope.formSearch.zdType = feature;
             $scope.search();
         };
-
-        $scope.$on('ChartDataUpdated', function (event) {
-            $timeout(function () {
-                $rootScope.$broadcast('ResizePage');
-            }, 100);
-        });
-
-
         $scope.$on('QDYZChartDataUpdated', function (event) {
             var qdyz = new Highcharts.Chart({
                 chart: {
@@ -352,6 +344,5 @@ module.controller("CompareController", ['$scope', '$state', '$rootScope', '$time
         angular.element(document).ready(function () {
             $rootScope.$broadcast("HideDashboard");
             $('.footable').footable({ paginate: false });
-            $rootScope.$broadcast('ResizePage');
         });
     }]);

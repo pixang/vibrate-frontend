@@ -5,7 +5,6 @@ angular.module('supportAdminApp')
         function ($log, $q, $http, $const) {
             // local dev
             var API_URL = $const.API_URL;
-            var trainState = $const.TRAIN_STATE;
 
             var ReportSearchService = {};
 
