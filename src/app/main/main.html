@@ -72,7 +72,7 @@
                                         <td style="opacity:1;width: 1px; height:47px;border-top: 0;border-bottom: 1px solid #e7eaec;"></td>
                                         <td ng-repeat="trainOnly in trainInfo.trainDetail" ng-init="innerIndex = $index" style="width: 47px;border-top: 0;border-bottom: 1px solid #e7eaec;">
                                             <a class="dashboard-icon" ng-click="openMainDialog(trainOnly.trainOnlyid,trainOnly.trainDirection)"
-                                               data-toggle="tooltip" title="May be no data!" ng-mouseover="timeShow(trainOnly.trainDate)" ng-class="{
+                                               data-toggle="tooltip" ng-mouseover="timeShow(trainOnly.trainDate)" ng-class="{
                                                  downnormal : trainOnly.trainState == 4,
                                                  downabnormal : trainOnly.trainState == 2,
                                                  downearlywarning : trainOnly.trainState == 1,

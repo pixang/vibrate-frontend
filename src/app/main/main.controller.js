@@ -286,7 +286,7 @@ module.controller('MainController', [
         };
         $scope.timeShow = function (trainDate) {
             if (!trainDate) {
-                $(".dashboard-icon").attr("title", "No data zzz!");
+                $(".dashboard-icon").attr("title", "");
                 return
             }
             var date = trainDate.slice(0, 4) + '-' + trainDate.slice(4, 6) + '-' + trainDate.slice(6, 8) + ' ' +
@@ -333,9 +333,6 @@ module.controller('MainController', [
         };
 
         angular.element(document).ready(function () {
-            if ($location.url() === '/index/main') {
-                $rootScope.$broadcast("ShowDashboard");
-            }
             $('[data-toggle="tooltip"]').tooltip();
 
             if ($cookies.get('currentUser')) {
