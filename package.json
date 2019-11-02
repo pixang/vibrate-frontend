@@ -27,7 +27,7 @@
     "footable": "~2.0.3",
     "icheck": "1.0.2",
     "jquery": "~3.4.0",
-    "lodash": "~4.2.0",
+    "lodash": "~4.17.13",
     "metismenu": "~2.0.2",
     "ng-file-model": "~0.0.4",
     "pace-js": "~1.0.2"
